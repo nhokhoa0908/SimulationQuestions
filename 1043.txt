@@ -1,0 +1,61 @@
+Sure, let's go through each task step by step:
+
+**Task 1:**
+1. **Configure SW-1 and SW-2 ports e0/1 and e0/2 to permit only the allowed VLANs (56 and 77):**
+   - On SW-1:
+     ```
+     SW-1(config)# interface range gigabitEthernet 0/1-2
+     SW-1(config-if-range)# switchport trunk allowed vlan 56,77
+     ```
+   - On SW-2:
+     ```
+     SW-2(config)# interface range gigabitEthernet 0/1-2
+     SW-2(config-if-range)# switchport trunk allowed vlan 56,77
+     ```
+
+**Task 2:**
+2. **Configure SW-3 and SW-4 ports e0/2 to permit only the allowed VLANs (56 and 77):**
+   - On SW-3:
+     ```
+     SW-3(config)# interface gigabitEthernet 0/2
+     SW-3(config-if)# switchport trunk allowed vlan 56,77
+     ```
+   - On SW-4:
+     ```
+     SW-4(config)# interface gigabitEthernet 0/2
+     SW-4(config-if)# switchport trunk allowed vlan 56,77
+     ```
+
+**Task 3:**
+3. **Configure SW-1 and SW-2 e0/1 ports to send and receive untagged traffic over VLAN 99:**
+   - On SW-1:
+     ```
+     SW-1(config)# interface gigabitEthernet 0/1
+     SW-1(config-if)# switchport trunk native vlan 99
+     ```
+   - On SW-2:
+     ```
+     SW-2(config)# interface gigabitEthernet 0/1
+     SW-2(config-if)# switchport trunk native vlan 99
+     ```
+
+**Task 4:**
+4. **Configure SW-3 and SW-4 ports e0/0 and e0/1 for link aggregation using the industry standard protocol. All ports must immediately negotiate the link aggregation:**
+   - On SW-3:
+     ```
+     SW-3(config)# interface range gigabitEthernet 0/0-1
+     SW-3(config-if-range)# channel-group 34 mode active
+     SW-3(config-if-range)# switchport trunk encapsulation dot1q
+     SW-3(config-if-range)# switchport mode trunk
+     SW-3(config-if-range)# switchport trunk allowed vlan 56,77
+     ```
+   - On SW-4:
+     ```
+     SW-4(config)# interface range gigabitEthernet 0/0-1
+     SW-4(config-if-range)# channel-group 34 mode active
+     SW-4(config-if-range)# switchport trunk encapsulation dot1q
+     SW-4(config-if-range)# switchport mode trunk
+     SW-4(config-if-range)# switchport trunk allowed vlan 56,77
+     ```
+
+These configurations ensure that the switches are set up according to the specified requirements for VLANs, trunking, and link aggregation.
